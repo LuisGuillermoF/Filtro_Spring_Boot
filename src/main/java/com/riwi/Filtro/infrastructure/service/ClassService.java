@@ -58,6 +58,7 @@ public class ClassService implements IClassService{
         return this.objClassRepository.findById(id).orElseThrow();
     }
 
+
     private Clase EntityToRequest(ClassRequest request){
         return Clase.builder()
         .id(request.getId())

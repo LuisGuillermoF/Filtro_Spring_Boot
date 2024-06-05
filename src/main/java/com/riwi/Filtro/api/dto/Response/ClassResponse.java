@@ -20,6 +20,4 @@ public class ClassResponse {
     private LocalDateTime create_at;
     private StatusClass Status;
 
-    private StudentResponse studen;
-    private LessonResponse lesson;
 }
