@@ -15,6 +15,7 @@ import com.riwi.Filtro.domain.entity.Student;
 import com.riwi.Filtro.domain.repository.ClassRepository;
 import com.riwi.Filtro.domain.repository.StudentRepository;
 import com.riwi.Filtro.infrastructure.abastract_services.IStudentService;
+import com.riwi.Filtro.util.StatusClass;
 import com.riwi.Filtro.util.exception.BadRequestException;
 
 import lombok.AllArgsConstructor;
@@ -97,5 +98,12 @@ public class StudentService implements IStudentService{
         .status(entity.getStatus())
         .clase(classResponse)
         .build();
+    }
+
+    @Override
+    public StudentResponse disable(Long id) {
+        Student objStudent = this.find(id);
+        objStudent.setStatus(StatusClass.INACTIVE);
+        return this.entityToResponse(this.objStudentRepository.save(objStudent));
     }
 }

@@ -3,12 +3,14 @@ package com.riwi.Filtro.api.controllers;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -58,5 +60,10 @@ public class StudentController {
     @GetMapping("/{id}")
     public ResponseEntity<StudentResponse> getById(@PathVariable Long id){
         return ResponseEntity.ok(this.objStudentService.getById(id));
+    }
+
+    @PatchMapping("/{id}/disable")
+    public ResponseEntity<StudentResponse> disable(@PathVariable Long id){
+        return  ResponseEntity.ok(this.objStudentService.disable(id));
     }
 }

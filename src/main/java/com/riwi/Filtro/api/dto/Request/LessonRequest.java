@@ -15,5 +15,5 @@ public class LessonRequest {
     private String title;
     private String content;
     private StatusClass Status;
-    private Long clase;
+    private Long ClasesID;
 }

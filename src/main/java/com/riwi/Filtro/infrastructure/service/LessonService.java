@@ -12,6 +12,7 @@ import com.riwi.Filtro.api.dto.Request.LessonRequest;
 import com.riwi.Filtro.api.dto.Response.ClassResponse;
 import com.riwi.Filtro.api.dto.Response.LessonResponse;
 import com.riwi.Filtro.api.dto.Response.MultimediaResponse;
+import com.riwi.Filtro.domain.entity.Clase;
 import com.riwi.Filtro.domain.entity.Lesson;
 import com.riwi.Filtro.domain.repository.ClassRepository;
 import com.riwi.Filtro.domain.repository.LessonRepository;
@@ -69,11 +70,15 @@ public class LessonService implements ILessonService{
     }
 
     private Lesson entityToRequest(LessonRequest request){
+        Clase clase = this.objClaseRepository.findById(request.getClasesID()).orElseThrow();
+
+
         return Lesson.builder()
         .title(request.getTitle())
         .content(request.getContent())
         .create_at(LocalDateTime.now())
         .Status(request.getStatus())
+        .ClaseId(clase)
         .build();
     }
 

@@ -85,7 +85,7 @@ public class ClassService implements IClassService{
     
 
     private ClassResponseWitchStudent ClassResponseStudents(Clase entity){
-        
+
         StudentResponse student = new StudentResponse();
         BeanUtils.copyProperties(entity, student);
         

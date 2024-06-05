@@ -5,4 +5,5 @@ import com.riwi.Filtro.api.dto.Response.StudentResponse;
 
 public interface IStudentService extends CrudGeneral<StudentRequest,StudentResponse,Long>{
     public StudentResponse getById(Long id);
+    public StudentResponse disable(Long id);
 }
