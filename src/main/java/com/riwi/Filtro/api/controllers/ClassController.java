@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.riwi.Filtro.api.dto.Request.ClassRequest;
 import com.riwi.Filtro.api.dto.Response.ClassResponse;
+import com.riwi.Filtro.api.dto.Response.ClassResponseWitchStudent;
 import com.riwi.Filtro.infrastructure.abastract_services.IClassService;
-
 
 import lombok.AllArgsConstructor;
 
@@ -34,5 +35,11 @@ public class ClassController {
     @PostMapping
     public ResponseEntity<ClassResponse> insert(@Validated @RequestBody ClassRequest request){
         return ResponseEntity.ok(this.objClassService.create(request));
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ClassResponseWitchStudent> getById(@PathVariable Long id){
+        return ResponseEntity.ok(this.objClassService.getById(id));
     }
 }

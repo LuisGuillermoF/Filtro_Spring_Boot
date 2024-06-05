@@ -13,11 +13,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentResponse{
+public class StudentsResponseToClass {
     private Long id;
     private String name;
     private String email;
     private LocalDateTime create_at;
     private StatusClass status;
-    private ClassResponse clase;
 }

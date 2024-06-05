@@ -10,14 +10,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentResponse{
+@Builder
+public class ClassResponseWitchStudent {
     private Long id;
     private String name;
-    private String email;
+    private String description;
     private LocalDateTime create_at;
-    private StatusClass status;
-    private ClassResponse clase;
+    private StatusClass Status;
+    private StudentResponse student;
 }

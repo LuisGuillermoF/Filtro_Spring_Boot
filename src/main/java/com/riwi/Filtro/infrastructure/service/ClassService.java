@@ -2,6 +2,7 @@ package com.riwi.Filtro.infrastructure.service;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.riwi.Filtro.api.dto.Request.ClassRequest;
 import com.riwi.Filtro.api.dto.Response.ClassResponse;
+import com.riwi.Filtro.api.dto.Response.ClassResponseWitchStudent;
+import com.riwi.Filtro.api.dto.Response.StudentResponse;
 import com.riwi.Filtro.domain.entity.Clase;
 import com.riwi.Filtro.domain.repository.ClassRepository;
 import com.riwi.Filtro.infrastructure.abastract_services.IClassService;
@@ -52,8 +55,8 @@ public class ClassService implements IClassService{
     }
 
     @Override
-    public ClassResponse getById(Long id) {
-        return  this.entityToResponse(this.find(id));
+    public ClassResponseWitchStudent getById(Long id) {
+        return  this.ClassResponseStudents(find(id));
     }
 
     private Clase find(Long id){
@@ -79,18 +82,31 @@ public class ClassService implements IClassService{
         .Status(entity.getStatus())
         .build();
     }
+    
 
-    @Override
-    public ClassResponse getByName(String name) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getByName'");
+    private ClassResponseWitchStudent ClassResponseStudents(Clase entity){
+        
+        StudentResponse student = new StudentResponse();
+        BeanUtils.copyProperties(entity, student);
+        
+
+        return ClassResponseWitchStudent.builder()
+        .id(entity.getId())
+        .name(entity.getName())
+        .description(entity.getDescription())
+        .create_at(entity.getCreate_at())
+        .Status(entity.getStatus())
+        .student(student)
+        .build();
     }
+
 
     @Override
     public ClassResponse getByDescription(String description) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getByDescription'");
     }
+
 
 
 }

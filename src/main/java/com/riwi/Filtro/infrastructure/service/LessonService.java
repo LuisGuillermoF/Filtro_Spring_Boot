@@ -2,6 +2,7 @@ package com.riwi.Filtro.infrastructure.service;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.riwi.Filtro.api.dto.Request.LessonRequest;
 import com.riwi.Filtro.api.dto.Response.ClassResponse;
 import com.riwi.Filtro.api.dto.Response.LessonResponse;
+import com.riwi.Filtro.api.dto.Response.MultimediaResponse;
 import com.riwi.Filtro.domain.entity.Lesson;
 import com.riwi.Filtro.domain.repository.ClassRepository;
 import com.riwi.Filtro.domain.repository.LessonRepository;
@@ -30,8 +32,7 @@ public class LessonService implements ILessonService{
 
     @Override
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        this.objLessonRepository.delete(this.find(id));
     }
 
     @Override
@@ -43,8 +44,10 @@ public class LessonService implements ILessonService{
 
     @Override
     public LessonResponse update(Long id, LessonRequest request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        Lesson objLesson = this.find(id);
+        Lesson objLessonUpdate = this.entityToRequest(request);
+        objLessonUpdate.setId(objLesson.getId());
+        return this.entityToResponse(this.objLessonRepository.save(objLessonUpdate));
     }
 
     @Override
@@ -58,8 +61,11 @@ public class LessonService implements ILessonService{
 
     @Override
     public LessonResponse getById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+        return  this.entityToResponse(find(id));
+    }
+
+    private Lesson find(Long id){
+        return this.objLessonRepository.findById(id).orElseThrow();
     }
 
     private Lesson entityToRequest(LessonRequest request){
@@ -72,13 +78,18 @@ public class LessonService implements ILessonService{
     }
 
     private LessonResponse entityToResponse(Lesson entity){
-        ClassResponse classResponse = ClassResponse.builder()
-        .id(entity.getClaseId().getId())
-        .name(entity.getClaseId().getName())
-        .description(entity.getClaseId().getDescription())
-        .create_at(entity.getClaseId().getCreate_at())
-        .Status(entity.getClaseId().getStatus())
-        .build();
+        // ClassResponse classresponse = ClassResponse.builder()
+        // .name(entity.getClaseId().getName())
+        // .id(entity.getClaseId().getId())
+        // .description(entity.getClaseId().getDescription())
+        // .Status(entity.getClaseId().getStatus())
+        // .build();
+
+        ClassResponse classResponse = new ClassResponse();
+        BeanUtils.copyProperties(entity, classResponse);
+
+        MultimediaResponse multimedia = new MultimediaResponse();
+        BeanUtils.copyProperties(entity, multimedia);
 
         return LessonResponse.builder()
         .id(entity.getId())
@@ -86,6 +97,7 @@ public class LessonService implements ILessonService{
         .content(entity.getContent())
         .create_at(entity.getCreate_at())
         .Status(entity.getStatus())
+        .multimedia(multimedia)
         .clase(classResponse)
         .build();
 
