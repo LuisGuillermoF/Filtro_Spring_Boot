@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import com.riwi.Filtro.util.StatusClass;
 
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,8 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class StudentRequest implements  Serializable{
-        private Long id;
     private String name;
+    @Email
     private String email;
     private StatusClass status;
     private Long clase;

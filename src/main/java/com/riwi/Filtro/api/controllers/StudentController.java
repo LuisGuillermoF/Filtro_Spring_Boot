@@ -54,4 +54,9 @@ public class StudentController {
         response.put("messages", "Se elimino el curso correctamente");
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<StudentResponse> getById(@PathVariable Long id){
+        return ResponseEntity.ok(this.objStudentService.getById(id));
+    }
 }

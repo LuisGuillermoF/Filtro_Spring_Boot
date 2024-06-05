@@ -15,6 +15,7 @@ import com.riwi.Filtro.domain.entity.Student;
 import com.riwi.Filtro.domain.repository.ClassRepository;
 import com.riwi.Filtro.domain.repository.StudentRepository;
 import com.riwi.Filtro.infrastructure.abastract_services.IStudentService;
+import com.riwi.Filtro.util.exception.BadRequestException;
 
 import lombok.AllArgsConstructor;
 
@@ -67,9 +68,11 @@ public class StudentService implements IStudentService{
 
     private Student EntityToRequest  (StudentRequest request){
         Clase clase = this.objClassRepository.findById(request.getClase()).orElseThrow();
+        if (clase.getId() == null) {
+            throw new BadRequestException("El id ingresado es invalido no existe");
+        }
 
         return Student.builder()
-        .id(request.getId())
         .name(request.getName())
         .email(request.getEmail())
         .status(request.getStatus())
