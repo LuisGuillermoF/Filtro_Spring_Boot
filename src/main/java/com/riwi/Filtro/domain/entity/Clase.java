@@ -38,4 +38,6 @@ public  class  Clase {
     @ToString.Exclude
     @OneToMany(mappedBy= "ClassId",cascade=CascadeType.ALL)
     private List<Lesson> Lesson;
+
+    //2024-06-03T14:30:00
 }
