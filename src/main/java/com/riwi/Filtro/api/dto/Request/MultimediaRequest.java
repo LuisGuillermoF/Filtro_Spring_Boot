@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class MultimediaRequest {
+    private Long id;
     private String url;
     private StatusClass Status;
     private LocalDateTime create_at;

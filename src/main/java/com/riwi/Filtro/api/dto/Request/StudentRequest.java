@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class StudentRequest {
+    private Long id;
     private String name;
     private String email;
     private LocalDateTime create_at;

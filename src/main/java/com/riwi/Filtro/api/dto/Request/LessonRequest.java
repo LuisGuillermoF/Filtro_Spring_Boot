@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class LessonRequest {
+    private Long id;
     private String title;
     private String content;
     private LocalDateTime create_at;

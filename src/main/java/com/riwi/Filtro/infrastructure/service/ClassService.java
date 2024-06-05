@@ -1,50 +1,71 @@
 package com.riwi.Filtro.infrastructure.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 import com.riwi.Filtro.api.dto.Request.ClassRequest;
 import com.riwi.Filtro.api.dto.Response.ClassResponse;
 import com.riwi.Filtro.domain.entity.Clase;
+import com.riwi.Filtro.domain.repository.ClassRepository;
 import com.riwi.Filtro.infrastructure.abastract_services.IClassService;
 
+import lombok.AllArgsConstructor;
+
+@Service
+@AllArgsConstructor
 public class ClassService implements IClassService{
+
+    @Autowired
+    private final ClassRepository objClassRepository;
 
     @Override
     public void delete(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'delete'");
+        this.objClassRepository.delete(this.find(id));
     }
 
     @Override
     public ClassResponse create(ClassRequest request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'create'");
+        Clase clase =  this.EntityToRequest(request);
+
+        return  this.entityToResponse(this.objClassRepository.save(clase));
     }
 
     @Override
     public ClassResponse update(Long id, ClassRequest request) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'update'");
+        Clase objCLase = this.find(id);
+        Clase objClaseUpdate = this.EntityToRequest(request);
+        objClaseUpdate.setId(objCLase.getId());
+        return this.entityToResponse(this.objClassRepository.save(objClaseUpdate));
     }
 
     @Override
     public Page<ClassResponse> getAll(int page, int size) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
+        if (page <0) page = 0;
+
+        PageRequest paginable = PageRequest.of(page, size);
+
+        return this.objClassRepository.findAll(paginable).map(this::entityToResponse);
     }
 
     @Override
     public ClassResponse getById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getById'");
+        return  this.entityToResponse(this.find(id));
     }
 
-    private ClassRequest entityToRequest (ClassRequest request,Clase clase){
-        clase.setName(request.getName());
-        clase.setDescription(request.getDescription());
-        clase.setStatus(request.getStatus());
-        clase.setCreate_at(request.getCreate_at());
-        return clase;
+    private Clase find(Long id){
+        return this.objClassRepository.findById(id).orElseThrow();
+    }
+
+    private Clase EntityToRequest(ClassRequest request){
+        return Clase.builder()
+        .id(request.getId())
+        .name(request.getName())
+        .description(request.getDescription())
+        .create_at(request.getCreate_at())
+        .Status(request.getStatus())
+        .build();
     }
     
     private ClassResponse entityToResponse (Clase entity){
@@ -55,6 +76,18 @@ public class ClassService implements IClassService{
         .create_at(entity.getCreate_at())
         .Status(entity.getStatus())
         .build();
+    }
+
+    @Override
+    public ClassResponse getByName(String name) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getByName'");
+    }
+
+    @Override
+    public ClassResponse getByDescription(String description) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getByDescription'");
     }
 
 
