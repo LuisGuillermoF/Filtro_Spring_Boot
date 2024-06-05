@@ -1,7 +1,5 @@
 package com.riwi.Filtro.api.dto.Request;
 
-import java.time.LocalDateTime;
-
 import com.riwi.Filtro.util.StatusClass;
 
 import lombok.AllArgsConstructor;
@@ -14,9 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class LessonRequest {
-    private Long id;
     private String title;
     private String content;
-    private LocalDateTime create_at;
     private StatusClass Status;
+    private Long clase;
 }

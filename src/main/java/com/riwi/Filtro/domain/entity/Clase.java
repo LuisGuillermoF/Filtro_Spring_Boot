@@ -32,11 +32,11 @@ public  class  Clase {
     private StatusClass Status;
 
     @ToString.Exclude
-    @OneToMany(mappedBy= "ClassId",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy= "ClaseId",cascade=CascadeType.ALL)
     private List<Student> Student;
 
     @ToString.Exclude
-    @OneToMany(mappedBy= "ClassId",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy= "ClaseId",cascade=CascadeType.ALL)
     private List<Lesson> Lesson;
 
     //2024-06-03T14:30:00

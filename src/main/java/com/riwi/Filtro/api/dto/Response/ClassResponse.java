@@ -19,5 +19,5 @@ public class ClassResponse {
     private String description;
     private LocalDateTime create_at;
     private StatusClass Status;
-
+    
 }

@@ -1,5 +1,7 @@
 package com.riwi.Filtro.infrastructure.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -8,7 +10,9 @@ import org.springframework.stereotype.Service;
 import com.riwi.Filtro.api.dto.Request.StudentRequest;
 import com.riwi.Filtro.api.dto.Response.ClassResponse;
 import com.riwi.Filtro.api.dto.Response.StudentResponse;
+import com.riwi.Filtro.domain.entity.Clase;
 import com.riwi.Filtro.domain.entity.Student;
+import com.riwi.Filtro.domain.repository.ClassRepository;
 import com.riwi.Filtro.domain.repository.StudentRepository;
 import com.riwi.Filtro.infrastructure.abastract_services.IStudentService;
 
@@ -19,6 +23,9 @@ import lombok.AllArgsConstructor;
 public class StudentService implements IStudentService{
     @Autowired
     private final StudentRepository objStudentRepository;
+
+    @Autowired
+    private final ClassRepository objClassRepository;
 
     @Override
     public void delete(Long id) {
@@ -59,29 +66,31 @@ public class StudentService implements IStudentService{
     }
 
     private Student EntityToRequest  (StudentRequest request){
+        Clase clase = this.objClassRepository.findById(request.getClase()).orElseThrow();
+
         return Student.builder()
         .id(request.getId())
         .name(request.getName())
         .email(request.getEmail())
-        .create_at(request.getCreate_at())
         .status(request.getStatus())
+        .ClaseId(clase)
         .build();
     }
     
     private StudentResponse entityToResponse (Student entity){
         ClassResponse classResponse = ClassResponse.builder()
-        .id(entity.getClassId().getId())
-        .name(entity.getClassId().getName())
-        .description(entity.getClassId().getDescription())
-        .create_at(entity.getClassId().getCreate_at())
-        .Status(entity.getClassId().getStatus())
+        .id(entity.getClaseId().getId())
+        .name(entity.getClaseId().getName())
+        .description(entity.getClaseId().getDescription())
+        .create_at(entity.getClaseId().getCreate_at())
+        .Status(entity.getClaseId().getStatus())
         .build();
 
         return StudentResponse.builder()
         .id(entity.getId())
         .name(entity.getName())
         .email(entity.getEmail())
-        .create_at(entity.getCreate_at())
+        .create_at(LocalDateTime.now())
         .status(entity.getStatus())
         .clase(classResponse)
         .build();

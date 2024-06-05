@@ -1,5 +1,6 @@
 package com.riwi.Filtro.api.dto.Response;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import com.riwi.Filtro.util.StatusClass;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudentResponse {
+public class StudentResponse  implements  Serializable{
     private Long id;
     private String name;
     private String email;

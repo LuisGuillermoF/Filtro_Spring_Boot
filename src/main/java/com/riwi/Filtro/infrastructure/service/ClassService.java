@@ -1,5 +1,7 @@
 package com.riwi.Filtro.infrastructure.service;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -61,10 +63,9 @@ public class ClassService implements IClassService{
 
     private Clase EntityToRequest(ClassRequest request){
         return Clase.builder()
-        .id(request.getId())
         .name(request.getName())
         .description(request.getDescription())
-        .create_at(request.getCreate_at())
+        .create_at(LocalDateTime.now())
         .Status(request.getStatus())
         .build();
     }

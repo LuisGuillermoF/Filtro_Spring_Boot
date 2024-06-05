@@ -39,6 +39,6 @@ public  class  Lesson {
     private List<Multimedia> multimedia;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.REFRESH)
-    @JoinColumn(name = "Class_id",referencedColumnName="id")
-    private Clase ClassId;
+    @JoinColumn(name = "Clase_id",referencedColumnName="id")
+    private Clase ClaseId;
 }

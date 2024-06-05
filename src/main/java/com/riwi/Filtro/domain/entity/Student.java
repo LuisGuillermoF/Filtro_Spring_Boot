@@ -33,6 +33,6 @@ public  class  Student {
 
 
     @ManyToOne(fetch = FetchType.LAZY,cascade=CascadeType.REFRESH)
-    @JoinColumn(name="Class_id",referencedColumnName="id")
-    private Clase ClassId;
+    @JoinColumn(name="Clase_id",referencedColumnName="id")
+    private Clase ClaseId;
 }
