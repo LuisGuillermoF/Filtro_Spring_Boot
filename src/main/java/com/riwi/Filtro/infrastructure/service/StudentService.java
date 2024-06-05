@@ -68,7 +68,7 @@ public class StudentService implements IStudentService{
     }
 
     private Student EntityToRequest  (StudentRequest request){
-        Clase clase = this.objClassRepository.findById(request.getClase()).orElseThrow();
+        Clase clase = this.objClassRepository.findById(request.getClase()).orElseThrow(()-> new  BadRequestException("No se encontro estudiante con ese id"));
         if (clase.getId() == null) {
             throw new BadRequestException("El id ingresado es invalido no existe");
         }

@@ -17,6 +17,7 @@ import com.riwi.Filtro.domain.entity.Lesson;
 import com.riwi.Filtro.domain.repository.ClassRepository;
 import com.riwi.Filtro.domain.repository.LessonRepository;
 import com.riwi.Filtro.infrastructure.abastract_services.ILessonService;
+import com.riwi.Filtro.util.exception.BadRequestException;
 
 import lombok.AllArgsConstructor;
 
@@ -66,7 +67,7 @@ public class LessonService implements ILessonService{
     }
 
     private Lesson find(Long id){
-        return this.objLessonRepository.findById(id).orElseThrow();
+        return this.objLessonRepository.findById(id).orElseThrow(()-> new  BadRequestException("No se encontro Lesion con ese id"));
     }
 
     private Lesson entityToRequest(LessonRequest request){

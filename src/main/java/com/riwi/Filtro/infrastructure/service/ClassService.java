@@ -15,6 +15,7 @@ import com.riwi.Filtro.api.dto.Response.StudentResponse;
 import com.riwi.Filtro.domain.entity.Clase;
 import com.riwi.Filtro.domain.repository.ClassRepository;
 import com.riwi.Filtro.infrastructure.abastract_services.IClassService;
+import com.riwi.Filtro.util.exception.BadRequestException;
 
 import lombok.AllArgsConstructor;
 
@@ -60,7 +61,7 @@ public class ClassService implements IClassService{
     }
 
     private Clase find(Long id){
-        return this.objClassRepository.findById(id).orElseThrow();
+        return this.objClassRepository.findById(id).orElseThrow(()-> new  BadRequestException("No se encontro clase con ese id"));
     }
 
 
